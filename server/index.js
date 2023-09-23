@@ -8,9 +8,8 @@ const app = express();
 
 const voteList = []
 
-app.listen(PORT, () => {
-    console.log(`Server listening on ${PORT}`);
-});
+app.use(express.static(path.join(__dirname, '../build')));
+
 
 
 app.get("/api", (req, res) => {
@@ -32,6 +31,11 @@ app.post("/api/vote", (req, res) => {
 
 // All other GET requests not handled before will return our React app
 app.get('*', (req, res) => {
-    const indexFile = path.resolve(__dirname, '../build', 'index.html');
+    const indexFile = path.resolve(__dirname, '../build', req.originalUrl);
     res.sendFile(indexFile);
+});
+
+
+app.listen(PORT, () => {
+    console.log(`Server listening on ${PORT}`);
 });
