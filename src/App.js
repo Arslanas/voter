@@ -9,7 +9,11 @@ function App() {
         const data = {
             name: 'Arslan', value: 5,
         }
-        fetch('/api/vote', {method: 'POST', body: JSON.stringify(data)})
+        fetch('/api/vote', {
+            method: 'POST',
+            headers : {'Content-Type': 'application/json'},
+            body: JSON.stringify(data)
+        })
     }
 
 
