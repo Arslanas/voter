@@ -6,7 +6,7 @@ function App() {
     const [data, setData] = useState()
 
     const voteHandler = () => {
-        data = {
+        const data = {
             name: 'Arslan', value: 5,
         }
         fetch('/api/vote', {method: 'POST', body: JSON.stringify(data)})
