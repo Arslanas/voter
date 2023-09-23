@@ -16,18 +16,14 @@ function App() {
         })
     }
 
-
-
-    useEffect(() => {
-        fetch("/api")
+    const dataPollHandler = () => fetch("/api")
             .then(res => res.json())
             .then(data => setData(data.message))
-
-    })
 
     return (<div>
             <h1>{data ? data : 'Loading ...'}</h1>
             <button onClick={voteHandler}>Vote</button>
+            <button onClick={dataPollHandler}>Refresh</button>
         </div>);
 }
 

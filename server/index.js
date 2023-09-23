@@ -15,12 +15,13 @@ app.use(bodyParser.json());
 
 
 app.get("/api", (req, res) => {
-    res.json({ message: "Hello from server!" });
+    res.json({ message: JSON.stringify(voteList) });
 })
 
 app.post("/api/vote", (req, res) => {
     const postData = req.body; // Access the parsed POST data
     voteList.push(postData)
+    res.status(200).json({ message: 'Request was successful' });
 })
 
 
