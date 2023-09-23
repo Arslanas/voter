@@ -2,6 +2,7 @@
   "name": "voter",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:3001",
   "engines": {
     "node": "v16.14.2",
     "npm": "7.20.6"
