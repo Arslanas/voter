@@ -1,6 +1,7 @@
 // server/index.js
 const express = require("express");
 const path = require('path');
+const bodyParser = require('body-parser');
 
 const PORT = process.env.PORT || 3000;
 
@@ -9,6 +10,7 @@ const app = express();
 const voteList = []
 
 app.use(express.static(path.join(__dirname, '../build')));
+app.use(bodyParser.json());
 
 
 
@@ -18,14 +20,7 @@ app.get("/api", (req, res) => {
 
 app.post("/api/vote", (req, res) => {
     const postData = req.body; // Access the parsed POST data
-
     voteList.push(postData)
-
-    // Process the received data
-    console.log('Received POST data:', voteList);
-
-    // Send a response
-    res.send('Received and processed the vote request.');
 })
 
 
