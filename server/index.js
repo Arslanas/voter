@@ -1,8 +1,8 @@
 // server/index.js
-
 const express = require("express");
+const path = require('path');
 
-const PORT =  3001;
+const PORT = process.env.PORT || 3001;
 
 const app = express();
 
@@ -28,3 +28,9 @@ app.post("/api/vote", (req, res) => {
     // Send a response
     res.send('Received and processed the vote request.');
 })
+
+
+// All other GET requests not handled before will return our React app
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../build', 'index.html'));
+});
