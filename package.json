@@ -21,8 +21,8 @@
     "startdev": "concurrently \"npm run client\" \"npm run serverdev\"",
     "start": "npm run build && npm run  server",
     "client": "react-scripts start",
-    "server": "node server/index.js",
-    "serverdev": " set PORT=3001 && node server/index.js ",
+    "server": "node server/backend.js",
+    "serverdev": " set PORT=3001 && node server/backend.js ",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "build": "react-scripts build"

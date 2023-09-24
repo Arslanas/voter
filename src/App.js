@@ -1,5 +1,6 @@
 import './App.css';
 import {useState} from "react";
+import Login from "./components/login/Login";
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
             .then(data => setData(data.message))
 
     return (<div>
+            <Login/>
             <h1>{data ? data : 'Loading ...'}</h1>
             <button onClick={voteHandler}>Vote</button>
             <button onClick={dataPollHandler}>Refresh</button>
