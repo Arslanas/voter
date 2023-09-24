@@ -1,32 +1,33 @@
 import './App.css';
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Login from "./components/login/Login";
+import Dashboard from "./components/dashboard/Dashboard";
+import StoryPointsPoller from "./components/polling/StoryPointsPoller";
 
-function App() {
+const App = ()=> {
 
+    const [user, setUser] = useState('')
     const [data, setData] = useState()
 
-    const voteHandler = () => {
-        const data = {
-            name: 'Arslan', value: 5,
-        }
-        fetch('/api/vote', {
-            method: 'POST',
-            headers : {'Content-Type': 'application/json'},
-            body: JSON.stringify(data)
-        })
-    }
+    const dataFetchHandler = () => fetch("/api")
+        .then(res => res.json())
+        .then(data => setData(data.map))
 
-    const dataPollHandler = () => fetch("/api")
-            .then(res => res.json())
-            .then(data => setData(data.message))
+    const dataResetHandler = () => fetch("/api/reset", {method:'POST'})
 
-    return (<div>
-            <Login/>
-            <h1>{data ? data : 'Loading ...'}</h1>
-            <button onClick={voteHandler}>Vote</button>
-            <button onClick={dataPollHandler}>Refresh</button>
-        </div>);
+    useEffect(()=>{
+        dataFetchHandler()
+    }, [])
+
+
+    return <div>
+        {!user && <Login setUserHandler={setUser}/>}
+        {user && data && <StoryPointsPoller user={user} dataFetchHandler={dataFetchHandler}/>}
+
+        <button onClick={dataFetchHandler}>Refresh</button>
+        <button onClick={dataResetHandler}>Start new Jira voting</button>
+        {user && <Dashboard data={data}/>}
+    </div>
 }
 
 export default App;
