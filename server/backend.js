@@ -2,6 +2,7 @@
 const express = require("express");
 const path = require('path');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const PORT = process.env.PORT || 3000;
 
@@ -10,6 +11,20 @@ const app = express();
 
 app.use(express.static(path.join(__dirname, '../build')));
 app.use(bodyParser.json());
+app.use(cors());
+
+app.get('/status', (request, response) => response.json({clients: clients.length}));
+
+let clients = [];
+let facts = [];
+
+
+
+
+
+
+
+
 
 
 const dataMap = {
@@ -26,8 +41,30 @@ const dataMap = {
     Vijay: {point: undefined},
 }
 
-app.get("/api", (req, res) => {
-    res.json({map: dataMap});
+app.get("/api/subscribe", (request, response) => {
+    const headers = {
+        'Content-Type': 'text/event-stream',
+        'Connection': 'keep-alive',
+        'Cache-Control': 'no-cache'
+    };
+    response.writeHead(200, headers);
+
+
+    response.write(`data: ${JSON.stringify(dataMap)}\n\n`);
+
+    const clientId = Date.now();
+
+    const newClient = {
+        id: clientId,
+        response
+    };
+
+    clients.push(newClient);
+
+    request.on('close', () => {
+        console.log(`${clientId} Connection closed`);
+        clients = clients.filter(client => client.id !== clientId);
+    });
 })
 
 app.post("/api/vote", (req, res) => {
@@ -38,10 +75,12 @@ app.post("/api/vote", (req, res) => {
     }
     dataMap[user].point = point
     res.status(200).json({message: 'OK'});
+    notifyAll()
 })
 
 app.post("/api/reset", (req, res) => {
-    Object.values(dataMap).forEach(user=> user.point=undefined)
+    Object.values(dataMap).forEach(user => user.point = undefined)
+    notifyAll()
     res.status(200).json({message: 'OK'});
 })
 
@@ -52,6 +91,9 @@ app.get('*', (req, res) => {
     res.sendFile(indexFile);
 });
 
+function notifyAll() {
+    clients.forEach(client => client.response.write(`data: ${JSON.stringify(dataMap)}\n\n`))
+}
 
 app.listen(PORT, () => {
     console.log(`Server listening on ${PORT}`);

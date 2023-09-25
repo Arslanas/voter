@@ -1,6 +1,4 @@
-import {useState} from "react";
-
-const StoryPointsPoller = ({user, dataFetchHandler}) => {
+const StoryPointsPoller = ({user}) => {
 
     const storyPoints = [1, 2, 3, 5, 8, 13, 21]
 
@@ -11,7 +9,7 @@ const StoryPointsPoller = ({user, dataFetchHandler}) => {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(data)
         }).then(()=>{
-            dataFetchHandler()
+            console.log('Voted')
         })
     }
 

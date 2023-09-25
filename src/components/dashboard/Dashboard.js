@@ -1,18 +1,19 @@
-import {useEffect, useState} from "react";
+const Dashboard = ({data}) => {
 
-const Login = ({data}) => {
+    console.log('Dashboard : ' + data)
 
     return <div>
 
         {data &&
             <table>
                 <thead>
-                <th>User</th>
-                <th>Point</th>
+                <tr>
+                    <td>User</td>
+                    <td>Point</td>
+                </tr>
                 </thead>
                 <tbody>
                 {Object.keys(data).map(user => {
-
                     const {point} = data[user]
                     return <tr key={user}>
                         <td>{user}</td>
@@ -26,4 +27,4 @@ const Login = ({data}) => {
     </div>;
 }
 
-export default Login;
+export default Dashboard;
