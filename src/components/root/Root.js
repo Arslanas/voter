@@ -24,13 +24,13 @@ const Root = () => {
 
     return <div>
         {!user && <Login setUserHandler={setUser}/>}
-        {user &&  <StoryPointsPoller user={user}/>}
+        {/*{user &&  <StoryPointsPoller user={user}/>}*/}
 
-        {data && <Dashboard data={data}/>}
-        <br></br>
-        <br></br>
-        <br></br>
-        <button onClick={dataResetHandler}>Start new Jira voting</button>
+        {/*{data && <Dashboard data={data}/>}*/}
+        {/*<br></br>*/}
+        {/*<br></br>*/}
+        {/*<br></br>*/}
+        {/*<button onClick={dataResetHandler}>Start new Jira voting</button>*/}
     </div>
 }
 
