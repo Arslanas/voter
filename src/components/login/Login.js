@@ -1,8 +1,9 @@
 import {useState} from "react";
+import Center from "../common/Center";
 
-const Login = ({setUserHandler}) => {
+const Login = ({setUserHandler, goToNextStage}) => {
 
-    const [profiles, setData] = useState([
+    const [profiles, setProfiles] = useState([
         'Ramesh',
         'Haitang',
         'Feili',
@@ -16,21 +17,20 @@ const Login = ({setUserHandler}) => {
         'Vijay',
     ].sort())
 
-    return <div className={'flex justify-center'}>
-        <div className={'flex flex-col h-screen justify-center items-center gap-y-20'}>
+    const clickUserHandler = (user)=>{
+        setUserHandler(user)
+        goToNextStage()
+    }
+
+    return <Center>
             <h1 className={'text-blue-600 text-6xl font-bold'}>Choose your profile</h1>
-            {/*<div className={'flex flex-wrap gap-10 '}>*/}
             <div className={'grid grid-cols-3  gap-16 '}>
-                {profiles.map(it =><Button key={it} onClick={()=> setUserHandler(it)} text={it}/>)}
+                {profiles.map(it =><button key={it}
+                                           className={'bg-blue-600 hover:bg-blue-800 text-white font-bold text-xl py-4 px-8 rounded-lg'}
+                                           onClick={()=> clickUserHandler(it)}>{it}</button>)}
             </div>
-        </div>
 
-    </div>;
-}
-
-const Button = ({onClick, text})=>{
-    return <button className={'bg-blue-600 hover:bg-blue-800 text-white font-bold text-xl py-4 px-8 rounded-lg'}
-        onClick={onClick}>{text}</button>
+    </Center>;
 }
 
 export default Login;

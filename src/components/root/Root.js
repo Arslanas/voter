@@ -9,6 +9,7 @@ const Root = () => {
 
     const [user, setUser] = useState('')
     const [data, setData] = useState()
+    const [stage, setStage] = useState(1)
     const isSubscribed = useRef(false);
 
     const dataResetHandler = () => fetch("/api/reset", {method:'POST'})
@@ -23,14 +24,12 @@ const Root = () => {
 
 
     return <div>
-        {!user && <Login setUserHandler={setUser}/>}
-        {/*{user &&  <StoryPointsPoller user={user}/>}*/}
+        {stage === 1 && <Login setUserHandler={setUser} goToNextStage={()=>setStage(10)}/>}
 
-        {/*{data && <Dashboard data={data}/>}*/}
-        {/*<br></br>*/}
-        {/*<br></br>*/}
-        {/*<br></br>*/}
-        {/*<button onClick={dataResetHandler}>Start new Jira voting</button>*/}
+        {stage === 10 &&  <StoryPointsPoller user={user} goToNextStage={()=>setStage(20)}/>}
+
+        {stage === 20 && <Dashboard data={data}/>}
+        {/*<button onClick={dataResetHandler}>Clear all story points</button>*/}
     </div>
 }
 
