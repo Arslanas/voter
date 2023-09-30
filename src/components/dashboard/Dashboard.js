@@ -1,6 +1,7 @@
 import Center from "../common/Center";
-import StartNewJiraButton from "../common/StartNewJiraButton";
+import StartNewRoundButton from "../common/StartNewRoundButton";
 import {useEffect} from "react";
+import Waiting from "../common/animation/Waiting";
 
 const Dashboard = ({user, data, goToStoryPoints}) => {
     const groupByPoints = Object.keys(data).reduce((group, name)=> {
@@ -49,7 +50,7 @@ const Dashboard = ({user, data, goToStoryPoints}) => {
                     </tbody>
                     <tfoot></tfoot>
                 </table>
-                <StartNewJiraButton goToNext={goToStoryPoints}/>
+                <StartNewRoundButton goToNext={goToStoryPoints}/>
             </>
 
         }
