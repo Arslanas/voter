@@ -3,9 +3,6 @@ import StartNewJiraButton from "../common/StartNewJiraButton";
 import {useEffect} from "react";
 
 const Dashboard = ({user, data, goToStoryPoints}) => {
-
-    console.log(data)
-
     const groupByPoints = Object.keys(data).reduce((group, name)=> {
         const userData = data[name]
         const point = userData.point
@@ -18,9 +15,6 @@ const Dashboard = ({user, data, goToStoryPoints}) => {
         group[point].push(name)
         return group
     }, {})
-
-
-    console.log(groupByPoints)
 
     useEffect(()=>{
         if (!data[user].point) goToStoryPoints()
@@ -46,8 +40,8 @@ const Dashboard = ({user, data, goToStoryPoints}) => {
                                 {'missing' === point ? 'No points' : point}
                             </td>
                             <td className="px-6 py-4 border-b border-blue-300 text-xl font-bold text-blue-500">
-                                <ul>
-                                    {users.map(user=> <li>{user}</li>)}
+                                <ul >
+                                    {users.map(user=> <li key={user}>{user}</li>)}
                                 </ul>
                             </td>
                         </tr>
