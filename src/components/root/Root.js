@@ -12,7 +12,15 @@ const Root = () => {
     const [stage, setStage] = useState(1)
     const isSubscribed = useRef(false);
 
-    const dataResetHandler = () => fetch("/api/reset", {method:'POST'})
+    const stages = {
+        'LOGIN' : 1,
+        'STORY_POINT' : 2,
+        'DASHBOARD' : 3,
+    }
+
+    const goToStoryPoint = ()=>setStage(stages.STORY_POINT)
+    const goToDashboard = ()=>setStage(stages.DASHBOARD)
+
 
     useEffect(()=>{
         if (isSubscribed.current) return
@@ -24,12 +32,11 @@ const Root = () => {
 
 
     return <div>
-        {stage === 1 && <Login setUserHandler={setUser} goToNextStage={()=>setStage(10)}/>}
+        {stage === stages.LOGIN && <Login setUserHandler={setUser} goToNextStage={goToStoryPoint}/>}
 
-        {stage === 10 &&  <StoryPointsPoller user={user} goToNextStage={()=>setStage(20)}/>}
+        {stage === stages.STORY_POINT &&  <StoryPointsPoller user={user} goToNextStage={goToDashboard}/>}
 
-        {stage === 20 && <Dashboard data={data}/>}
-        {/*<button onClick={dataResetHandler}>Clear all story points</button>*/}
+        {stage === stages.DASHBOARD && <Dashboard data={data} goToStoryPoints={goToStoryPoint} user={user}/>}
     </div>
 }
 

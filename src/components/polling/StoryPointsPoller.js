@@ -18,7 +18,7 @@ const StoryPointsPoller = ({user, goToNextStage}) => {
 
 
     return <Center>
-            <h1 className={'text-4xl text-blue-700 font-bold'}>{user}, please pick your story points for current Jira</h1>
+            <h1 className={'text-4xl text-blue-700 font-bold mb-20'}>{user}, please pick your story points for current Jira</h1>
             <div className={'flex gap-16 '}>
                 {storyPoints.map(sp => <button className={'bg-blue-600 hover:bg-blue-800 text-white font-bold text-xl py-4 px-8 rounded-lg'}
                                                onClick={()=> poller(sp)}>{sp}</button>)}
