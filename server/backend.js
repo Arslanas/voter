@@ -13,32 +13,29 @@ app.use(express.static(path.join(__dirname, '../build')));
 app.use(bodyParser.json());
 app.use(cors());
 
-app.get('/status', (request, response) => response.json({clients: clients.length}));
+app.get('/status', (request, response) => response.json({clients: clientConnections.length}));
 
-let clients = [];
-let facts = [];
+let clientConnections = [];
 
+let dataMap = initDataMap()
 
-
-
-
-
-
-
-
-
-const dataMap = {
-    Ramesh: {point: undefined},
-    Haitang: {point: undefined},
-    Feili: {point: undefined},
-    Gerrit: {point: undefined},
-    Arslan: {point: undefined},
-    Sachin: {point: undefined},
-    Harsh: {point: undefined},
-    Ashwini: {point: undefined},
-    Manisha: {point: undefined},
-    Richa: {point: undefined},
-    Vijay: {point: undefined},
+function initDataMap(){
+    return {
+        users: {
+            Ramesh: {point: undefined},
+            Haitang: {point: undefined},
+            Feili: {point: undefined},
+            Gerrit: {point: undefined},
+            Arslan: {point: undefined},
+            Sachin: {point: undefined},
+            Harsh: {point: undefined},
+            Ashwini: {point: undefined},
+            Manisha: {point: undefined},
+            Richa: {point: undefined},
+            Vijay: {point: undefined},
+        },
+        isShowDashboard : false,
+    }
 }
 
 app.get("/api/subscribe", (request, response) => {
@@ -59,27 +56,27 @@ app.get("/api/subscribe", (request, response) => {
         response
     };
 
-    clients.push(newClient);
+    clientConnections.push(newClient);
 
     request.on('close', () => {
         console.log(`${clientId} Connection closed`);
-        clients = clients.filter(client => client.id !== clientId);
+        clientConnections = clientConnections.filter(client => client.id !== clientId);
     });
 })
 
 app.post("/api/vote", (req, res) => {
     const {user, point} = req.body; // Access the parsed POST data
-    if (!dataMap[user]) {
+    if (!dataMap.users[user]) {
         res.status(400).json({message : 'Could not identify user'})
         return
     }
-    dataMap[user].point = point
+    dataMap.users[user].point = point
     res.status(200).json({message: 'OK'});
     notifyAll()
 })
 
 app.post("/api/reset", (req, res) => {
-    Object.values(dataMap).forEach(user => user.point = undefined)
+    dataMap = initDataMap()
     notifyAll()
     res.status(200).json({message: 'OK'});
 })
@@ -92,7 +89,7 @@ app.get('*', (req, res) => {
 });
 
 function notifyAll() {
-    clients.forEach(client => client.response.write(`data: ${JSON.stringify(dataMap)}\n\n`))
+    clientConnections.forEach(client => client.response.write(`data: ${JSON.stringify(dataMap)}\n\n`))
 }
 
 app.listen(PORT, () => {

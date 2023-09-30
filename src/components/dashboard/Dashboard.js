@@ -26,7 +26,7 @@ const Dashboard = ({user, data, goToStoryPoints}) => {
 
         {data &&
             <>
-                <table className="min-w-full divide-y divide-gray-200 bg-gray-100 mb-16">
+                <table className="min-w-full divide-y divide-gray-200 mb-16">
                     <thead>
                     <tr>
                         <td className="px-6 py-3 bg-blue-500  text-xl  uppercase text-white text-center">Point</td>
@@ -37,10 +37,10 @@ const Dashboard = ({user, data, goToStoryPoints}) => {
                     {Object.keys(groupByPoints).map(point => {
                         const users = groupByPoints[point]
                         return <tr key={point}>
-                            <td className="px-6 py-4 border-b border-blue-300 text-2xl font-bold  text-blue-500 text-center ">
+                            <td className="px-6 py-4 border-b border-blue-300 text-2xl font-bold  text-blue-400 text-center ">
                                 {'missing' === point ? 'No points' : point}
                             </td>
-                            <td className="px-6 py-4 border-b border-blue-300 text-xl font-bold text-blue-500">
+                            <td className="px-6 py-4 border-b border-blue-300 text-xl font-bold text-blue-300">
                                 <ul >
                                     {users.map(user=> <li key={user}>{user}</li>)}
                                 </ul>

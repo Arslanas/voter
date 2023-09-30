@@ -4,6 +4,7 @@ import Dashboard from "../dashboard/Dashboard";
 import StoryPointsPoller from "../polling/StoryPointsPoller";
 import {useRef} from "react";
 import {IS_DEV} from "../../util/Config";
+import WaitingRoom from "../dashboard/WaitingRoom";
 
 const Root = () => {
 
@@ -15,10 +16,12 @@ const Root = () => {
     const stages = {
         'LOGIN' : 1,
         'STORY_POINT' : 2,
-        'DASHBOARD' : 3,
+        'WAITING_ROOM' : 3,
+        'DASHBOARD' : 4,
     }
 
     const goToStoryPoint = ()=>setStage(stages.STORY_POINT)
+    const goToWaitingRoom = ()=>setStage(stages.WAITING_ROOM)
     const goToDashboard = ()=>setStage(stages.DASHBOARD)
 
 
@@ -34,9 +37,11 @@ const Root = () => {
     return <div>
         {stage === stages.LOGIN && <Login setUserHandler={setUser} goToNextStage={goToStoryPoint}/>}
 
-        {stage === stages.STORY_POINT &&  <StoryPointsPoller user={user} data={data} goToNextStage={goToDashboard}/>}
+        {stage === stages.STORY_POINT &&  <StoryPointsPoller user={user} data={data?.users} goToNextStage={goToWaitingRoom}/>}
 
-        {stage === stages.DASHBOARD && <Dashboard data={data} goToStoryPoints={goToStoryPoint} user={user}/>}
+        {stage === stages.WAITING_ROOM && <WaitingRoom data={data?.users} goToNextStage={goToDashboard} user={user}/>}
+
+        {stage === stages.DASHBOARD && <Dashboard data={data?.users} goToStoryPoints={goToStoryPoint} user={user}/>}
     </div>
 }
 
