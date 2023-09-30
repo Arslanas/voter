@@ -26,7 +26,7 @@ const Root = () => {
 
 
     useEffect(()=>{
-        if (isSubscribed.current || !user) return
+        if (isSubscribed.current) return
         isSubscribed.current = true
 
         const events = new EventSource(IS_DEV ? 'http://localhost:3001/api/subscribe' : 'api/subscribe');
@@ -35,7 +35,7 @@ const Root = () => {
 
 
     return <div>
-        {stage === stages.LOGIN && <Login setUserHandler={setUser} goToNextStage={goToStoryPoint}/>}
+        {stage === stages.LOGIN && <Login profiles={data?.users ? Object.keys(data.users) : []} setUserHandler={setUser} goToNextStage={goToStoryPoint}/>}
 
         {stage === stages.STORY_POINT &&  <StoryPointsPoller user={user} data={data?.users} goToNextStage={goToWaitingRoom}/>}
 

@@ -22,17 +22,17 @@ let dataMap = initDataMap()
 function initDataMap(){
     return {
         users: {
-            Ramesh: {point: undefined},
-            Haitang: {point: undefined},
-            Feili: {point: undefined},
-            Gerrit: {point: undefined},
-            Arslan: {point: undefined},
-            Sachin: {point: undefined},
-            Harsh: {point: undefined},
-            Ashwini: {point: undefined},
-            Manisha: {point: undefined},
-            Richa: {point: undefined},
-            Vijay: {point: undefined},
+            Ramesh: {point: undefined, role:'dev'},
+            Haitang: {point: undefined, role:'dev'},
+            Feili: {point: undefined, role:'dev'},
+            Gerrit: {point: undefined, role:'dev'},
+            Arslan: {point: undefined, role:'dev'},
+            Sachin: {point: undefined, role:'dev'},
+            Harsh: {point: undefined, role:'dev'},
+            Ashwini: {point: undefined, role:'dev'},
+            Manisha: {point: undefined, role:'dev'},
+            Richa: {point: undefined, role:'dev'},
+            Vijay: {point: undefined, role:'dev'},
         },
         isShowDashboard : false,
     }

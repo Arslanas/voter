@@ -2,21 +2,8 @@ import {useState} from "react";
 import Center from "../common/Center";
 import Button from "../common/Button";
 
-const Login = ({setUserHandler, goToNextStage}) => {
+const Login = ({profiles, setUserHandler, goToNextStage}) => {
 
-    const [profiles, setProfiles] = useState([
-        'Ramesh',
-        'Haitang',
-        'Feili',
-        'Gerrit',
-        'Arslan',
-        'Sachin',
-        'Harsh',
-        'Ashwini',
-        'Manisha',
-        'Richa',
-        'Vijay',
-    ].sort())
 
     const clickUserHandler = (user)=>{
         setUserHandler(user)
