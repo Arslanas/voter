@@ -3,11 +3,7 @@ import Center from "../common/Center";
 import {useEffect} from "react";
 import Button from "../common/Button";
 
-const WaitingRoom = ({user, data, goToPrevStage, goToNextStage, removePoint, setPoint}) => {
-
-    useEffect(() => {
-        if (!data[user].point) goToPrevStage()
-    }, [data])
+const WaitingRoom = ({user, data, showDashboardHandler, removePoint, setPoint}) => {
 
     return <Center>
 
@@ -17,16 +13,15 @@ const WaitingRoom = ({user, data, goToPrevStage, goToNextStage, removePoint, set
                 <div className={'flex flex-col gap-4 justify-around'}>
                     {Object.keys(data).sort().map(username =>
                         data[username].point ?
-                            <VotedUser username={username}/> :
-                            <NotVotedUser username={username}/>
+                            <VotedUser key={username} username={username}/> :
+                            <NotVotedUser key={username} username={username}/>
                     )}
                 </div>
 
             </div>
         </div>
-        <Button onClick={goToNextStage} text={'Force show dashboard for all'}/>
-        <Button onClick={()=>removePoint('Arslan')} text={'Remove point'}/>
-        <Button onClick={()=>setPoint('Arslan')} text={'Set point'}/>
+        <Button onClick={()=>showDashboardHandler(user)} text={'Force show dashboard for all'}/>
+
     </Center>;
 }
 
@@ -34,13 +29,13 @@ export default WaitingRoom;
 
 
 const VotedUser = ({username})=>{
-    return <div key={username}  className={`flex items-center gap-2` }>
+    return <div className={`flex items-center gap-2` }>
         <p className={`text-xl font-bold text-blue-400 voteAnim`}>{username}</p>
     </div>
 
 }
 const NotVotedUser = ({username})=>{
-    return <div key={username}  className={'flex items-center gap-2' }>
+    return <div className={'flex items-center gap-2' }>
         <p className={`text-xl font-bold text-slate-300`}>{username}</p>
     </div>
 }

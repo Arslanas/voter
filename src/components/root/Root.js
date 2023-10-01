@@ -20,23 +20,11 @@ const Root = () => {
         'DASHBOARD' : 4,
     }
 
-    const goToStoryPoint = ()=>setStage(stages.STORY_POINT)
-    const goToWaitingRoom = ()=>setStage(stages.WAITING_ROOM)
-    const goToDashboard = ()=>setStage(stages.DASHBOARD)
-
-    const removePoint = (user1) => {
-        fetch('/api/vote', {
+    const showDashboardHandler = (user)=> {
+        fetch('/api/show-dashboard', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({user: user1, point: null})
-        })
-    }
-
-    const setPoint = (user1) => {
-        fetch('/api/vote', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({user: user1, point: 5})
+            body: JSON.stringify({user: user})
         })
     }
 
@@ -49,22 +37,40 @@ const Root = () => {
         events.onmessage = (event) => setData(JSON.parse(event.data))
     }, [user])
 
+    useEffect(()=>{
+        console.log(data)
+        if (!user) {
+            setStage(stages.LOGIN)
+            return
+        }
+        if (data?.isShowDashboard) {
+            setStage(stages.DASHBOARD)
+            return;
+        }
+        if (!data.users[user].point) setStage(stages.STORY_POINT)
+        if (data.users[user].point) setStage(stages.WAITING_ROOM)
+
+    }, [data, user, stage])
+
+
+    console.log(stage)
+
 
     return <div>
         {stage === stages.LOGIN &&
-            <Login profiles={data?.users ? Object.keys(data.users) : []} setUserHandler={setUser} goToNextStage={goToStoryPoint}/>}
+            <Login profiles={data?.users ? Object.keys(data.users) : []} setUserHandler={setUser}/>}
 
         {stage === stages.STORY_POINT &&
-            <StoryPointsPoller user={user} data={data?.users} goToNextStage={goToWaitingRoom}/>}
+            <StoryPointsPoller user={user} data={data?.users}/>}
 
         {stage === stages.WAITING_ROOM &&
-            <WaitingRoom data={data?.users} goToPrevStage={goToStoryPoint}
-                         removePoint={removePoint}
-                         setPoint={setPoint}
-                         goToNextStage={goToDashboard} user={user}/>}
+            <WaitingRoom data={data?.users}
+                         user={user}
+                         showDashboardHandler={showDashboardHandler}
+            />}
 
         {stage === stages.DASHBOARD &&
-            <Dashboard data={data?.users} goToStoryPoints={goToStoryPoint} user={user}/>}
+            <Dashboard data={data?.users}  user={user}/>}
     </div>
 }
 

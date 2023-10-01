@@ -18,23 +18,25 @@ app.get('/status', (request, response) => response.json({clients: clientConnecti
 let clientConnections = [];
 
 let dataMap = initDataMap()
+const action={DASHBOARD: 'DASHBOARD', NEW_ROUND:'NEW_ROUND'}
 
-function initDataMap(){
+function initDataMap() {
     return {
         users: {
-            Ramesh: {point: undefined, role:'dev'},
-            Haitang: {point: undefined, role:'dev'},
-            Feili: {point: undefined, role:'dev'},
-            Gerrit: {point: undefined, role:'dev'},
-            Arslan: {point: undefined, role:'dev'},
-            Sachin: {point: undefined, role:'dev'},
-            Harsh: {point: undefined, role:'dev'},
-            Ashwini: {point: undefined, role:'dev'},
-            Manisha: {point: undefined, role:'qa'},
-            Richa: {point: undefined, role:'qa'},
-            Vijay: {point: undefined, role:'qa'},
+            Ramesh: {point: undefined, role: 'dev'},
+            Haitang: {point: undefined, role: 'dev'},
+            Feili: {point: undefined, role: 'dev'},
+            Gerrit: {point: undefined, role: 'dev'},
+            Arslan: {point: undefined, role: 'dev'},
+            Sachin: {point: undefined, role: 'dev'},
+            Harsh: {point: undefined, role: 'dev'},
+            Ashwini: {point: undefined, role: 'dev'},
+            Manisha: {point: undefined, role: 'qa'},
+            Richa: {point: undefined, role: 'qa'},
+            Vijay: {point: undefined, role: 'qa'},
         },
-        isShowDashboard : false,
+        isShowDashboard: false,
+        action: undefined,
     }
 }
 
@@ -71,6 +73,29 @@ app.post("/api/vote", (req, res) => {
         return
     }
     dataMap.users[user].point = point
+    res.status(200).json({message: 'OK'});
+    notifyAll()
+})
+
+app.post("/api/show-dashboard", (req, res) => {
+    const {user} = req.body; // Access the parsed POST data
+    if (!dataMap.users[user]) {
+        res.status(400).json({message : 'Could not identify user'})
+        return
+    }
+    dataMap.action = action.DASHBOARD
+    dataMap.isShowDashboard=true
+    res.status(200).json({message: 'OK'});
+    notifyAll()
+})
+
+app.post("/api/new-round", (req, res) => {
+    const {user} = req.body; // Access the parsed POST data
+    if (!dataMap.users[user]) {
+        res.status(400).json({message : 'Could not identify user'})
+        return
+    }
+    dataMap.action = action.NEW_ROUND
     res.status(200).json({message: 'OK'});
     notifyAll()
 })

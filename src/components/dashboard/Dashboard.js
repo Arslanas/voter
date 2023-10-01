@@ -1,8 +1,7 @@
 import Center from "../common/Center";
 import StartNewRoundButton from "../common/StartNewRoundButton";
-import {useEffect} from "react";
 
-const Dashboard = ({user, data, goToStoryPoints}) => {
+const Dashboard = ({ data}) => {
 
     const groupByPointsAndRole = (role) =>{
         return Object.keys(data)
@@ -25,10 +24,6 @@ const Dashboard = ({user, data, goToStoryPoints}) => {
 
     const qaGroup = groupByPointsAndRole('qa')
 
-    useEffect(() => {
-        if (!data[user].point) goToStoryPoints()
-    }, [data])
-
 
     return <Center>
 
@@ -40,12 +35,6 @@ const Dashboard = ({user, data, goToStoryPoints}) => {
                 <div>
                     <h1 className={'text-center text-4xl mb-6 font-bold text-blue-500'}>DEV</h1>
                     <table className="min-w-full divide-y divide-gray-200 mb-16">
-                        <thead>
-                        <tr>
-                            <td className="px-6 py-3 bg-blue-500  text-xl  uppercase text-white text-center">Point</td>
-                            <td className="px-6 py-3 bg-blue-500  text-xl  uppercase text-white text-center">Users</td>
-                        </tr>
-                        </thead>
                         <tbody>
                         {Object.keys(devGroup).map(point => {
                             const users = devGroup[point]
@@ -67,12 +56,6 @@ const Dashboard = ({user, data, goToStoryPoints}) => {
                 <div>
                     <h1 className={'text-center text-4xl mb-6 font-bold text-blue-500'}>QA</h1>
                     <table className="min-w-full divide-y divide-gray-200 mb-16">
-                        <thead>
-                        <tr>
-                            <td className="px-6 py-3 bg-blue-500  text-xl  uppercase text-white text-center">Point</td>
-                            <td className="px-6 py-3 bg-blue-500  text-xl  uppercase text-white text-center">Users</td>
-                        </tr>
-                        </thead>
                         <tbody>
                         {Object.keys(qaGroup).map(point => {
                             const users = qaGroup[point]
@@ -92,7 +75,7 @@ const Dashboard = ({user, data, goToStoryPoints}) => {
                     </table>
                 </div>
             </div>
-            <StartNewRoundButton goToNext={goToStoryPoints}/>
+            <StartNewRoundButton/>
             </div>
 
         }
