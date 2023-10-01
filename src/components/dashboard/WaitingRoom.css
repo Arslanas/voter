@@ -1,13 +1,19 @@
 .voteAnim{
     animation-name: vote;
-    animation-duration: 1s;
+    animation-duration: 0.5s;
     animation-iteration-count: 1;
+    animation-timing-function: ease-in-out;
 }
 @keyframes vote {
     0% {
-        opacity: 0;
+        color: #cbd5e1;
+    }
+    40% {
+        color: #0266ff;
+        scale: 1.2;
+        transform: translateY(-3px);
     }
     100% {
-        opacity: 1;
+        color: rgb(96 165 250);
     }
 }

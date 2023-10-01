@@ -3,7 +3,7 @@ import Center from "../common/Center";
 import {useEffect} from "react";
 import Button from "../common/Button";
 
-const WaitingRoom = ({user, data, goToPrevStage, goToNextStage}) => {
+const WaitingRoom = ({user, data, goToPrevStage, goToNextStage, removePoint, setPoint}) => {
 
     useEffect(() => {
         if (!data[user].point) goToPrevStage()
@@ -28,6 +28,8 @@ const WaitingRoom = ({user, data, goToPrevStage, goToNextStage}) => {
             </div>
         </div>
         <Button onClick={goToNextStage} text={'Force show dashboard for all'}/>
+        <Button onClick={()=>removePoint('Arslan')} text={'Remove point'}/>
+        <Button onClick={()=>setPoint('Arslan')} text={'Set point'}/>
     </Center>;
 }
 
@@ -35,8 +37,8 @@ export default WaitingRoom;
 
 
 const VotedUser = ({username})=>{
-    return <div key={username}  className={`flex items-center gap-2 voteAnim` }>
-        <p className={`text-xl font-bold text-blue-400`}>{username}</p>
+    return <div key={username}  className={`flex items-center gap-2` }>
+        <p className={`text-xl font-bold text-blue-400 voteAnim`}>{username}</p>
     </div>
 
 }

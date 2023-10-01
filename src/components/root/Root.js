@@ -24,6 +24,22 @@ const Root = () => {
     const goToWaitingRoom = ()=>setStage(stages.WAITING_ROOM)
     const goToDashboard = ()=>setStage(stages.DASHBOARD)
 
+    const removePoint = (user1) => {
+        fetch('/api/vote', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({user: user1, point: null})
+        })
+    }
+
+    const setPoint = (user1) => {
+        fetch('/api/vote', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({user: user1, point: 5})
+        })
+    }
+
 
     useEffect(()=>{
         if (isSubscribed.current) return
@@ -42,7 +58,10 @@ const Root = () => {
             <StoryPointsPoller user={user} data={data?.users} goToNextStage={goToWaitingRoom}/>}
 
         {stage === stages.WAITING_ROOM &&
-            <WaitingRoom data={data?.users} goToPrevStage={goToStoryPoint} goToNextStage={goToDashboard} user={user}/>}
+            <WaitingRoom data={data?.users} goToPrevStage={goToStoryPoint}
+                         removePoint={removePoint}
+                         setPoint={setPoint}
+                         goToNextStage={goToDashboard} user={user}/>}
 
         {stage === stages.DASHBOARD &&
             <Dashboard data={data?.users} goToStoryPoints={goToStoryPoint} user={user}/>}
