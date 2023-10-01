@@ -30,9 +30,9 @@ function initDataMap(){
             Sachin: {point: undefined, role:'dev'},
             Harsh: {point: undefined, role:'dev'},
             Ashwini: {point: undefined, role:'dev'},
-            Manisha: {point: undefined, role:'dev'},
-            Richa: {point: undefined, role:'dev'},
-            Vijay: {point: undefined, role:'dev'},
+            Manisha: {point: undefined, role:'qa'},
+            Richa: {point: undefined, role:'qa'},
+            Vijay: {point: undefined, role:'qa'},
         },
         isShowDashboard : false,
     }

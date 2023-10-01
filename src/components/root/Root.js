@@ -35,13 +35,17 @@ const Root = () => {
 
 
     return <div>
-        {stage === stages.LOGIN && <Login profiles={data?.users ? Object.keys(data.users) : []} setUserHandler={setUser} goToNextStage={goToStoryPoint}/>}
+        {stage === stages.LOGIN &&
+            <Login profiles={data?.users ? Object.keys(data.users) : []} setUserHandler={setUser} goToNextStage={goToStoryPoint}/>}
 
-        {stage === stages.STORY_POINT &&  <StoryPointsPoller user={user} data={data?.users} goToNextStage={goToWaitingRoom}/>}
+        {stage === stages.STORY_POINT &&
+            <StoryPointsPoller user={user} data={data?.users} goToNextStage={goToWaitingRoom}/>}
 
-        {stage === stages.WAITING_ROOM && <WaitingRoom data={data?.users} goToNextStage={goToDashboard} user={user}/>}
+        {stage === stages.WAITING_ROOM &&
+            <WaitingRoom data={data?.users} goToPrevStage={goToStoryPoint} goToNextStage={goToDashboard} user={user}/>}
 
-        {stage === stages.DASHBOARD && <Dashboard data={data?.users} goToStoryPoints={goToStoryPoint} user={user}/>}
+        {stage === stages.DASHBOARD &&
+            <Dashboard data={data?.users} goToStoryPoints={goToStoryPoint} user={user}/>}
     </div>
 }
 
