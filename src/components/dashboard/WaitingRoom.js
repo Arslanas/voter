@@ -9,9 +9,6 @@ const WaitingRoom = ({user, data, goToPrevStage, goToNextStage, removePoint, set
         if (!data[user].point) goToPrevStage()
     }, [data])
 
-    const userColor = (username) => data[username].point ? 'text-blue-400' : 'text-slate-300'
-    // const userText = (username) => data[username].point ?<AiFillCheckCircle color='blue' size={'50'}/> : username
-
     return <Center>
 
         <div className={'flex gap-40'}>
