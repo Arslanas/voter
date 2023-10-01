@@ -7,10 +7,10 @@ const WaitingRoom = ({user, data, showDashboardHandler, removePoint, setPoint}) 
 
     return <Center>
 
-        <div className={'flex gap-40'}>
+        <div className={'flex gap-10'}>
             <div className={'flex flex-col items-center gap-4 mb-10'}>
-                <h1 className={'text-4xl font-bold text-blue-400 mb-16'}>Please wait for all votes</h1>
-                <div className={'flex flex-col gap-4 justify-around'}>
+                <h1 className={'text-3xl font-bold text-blue-400 mb-4'}>Waiting for all votes</h1>
+                <div className={'flex flex-col gap-2 justify-around'}>
                     {Object.keys(data).sort().map(username =>
                         data[username].point ?
                             <VotedUser key={username} username={username}/> :
