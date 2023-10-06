@@ -5,6 +5,8 @@ import StoryPointsPoller from "../polling/StoryPointsPoller";
 import {useRef} from "react";
 import {IS_DEV} from "../../util/Config";
 import WaitingRoom from "../dashboard/WaitingRoom";
+import Notification from "./Notification";
+import {POST} from "../repository/Api";
 
 const Root = () => {
 
@@ -20,14 +22,7 @@ const Root = () => {
         'DASHBOARD' : 4,
     }
 
-    const showDashboardHandler = (user)=> {
-        fetch('/api/show-dashboard', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({user: user})
-        })
-    }
-
+    const showDashboardHandler = (user)=> POST('/api/show-dashboard', {user: user})
 
     useEffect(()=>{
         if (isSubscribed.current) return
@@ -38,7 +33,6 @@ const Root = () => {
     }, [user])
 
     useEffect(()=>{
-        console.log(data)
         if (!user) {
             setStage(stages.LOGIN)
             return
@@ -51,9 +45,6 @@ const Root = () => {
         if (data.users[user].point) setStage(stages.WAITING_ROOM)
 
     }, [data, user, stage])
-
-
-    console.log(stage)
 
 
     return <div>
@@ -71,6 +62,9 @@ const Root = () => {
 
         {stage === stages.DASHBOARD &&
             <Dashboard data={data?.users}  user={user}/>}
+
+        {data?.notification &&
+            <Notification key={data.notification.action} notification={data.notification}/>}
     </div>
 }
 

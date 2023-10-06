@@ -1,17 +1,13 @@
 import Center from "../common/Center";
 import Button from "../common/Button";
+import {POST} from "../repository/Api";
 
 const StoryPointsPoller = ({user}) => {
 
     const storyPoints = [1, 2, 3, 5, 8, 13, 21]
 
     const poller = (storyPoint) => {
-        const data = {user: user, point: storyPoint}
-        fetch('/api/vote', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(data)
-        })
+        POST('/api/vote', {user: user, point: storyPoint})
     }
 
 

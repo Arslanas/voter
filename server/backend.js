@@ -1,16 +1,14 @@
 // server/backend.js
 const express = require("express");
-const path = require('path');
 const bodyParser = require('body-parser');
+const path = require('path');
 const cors = require('cors');
 
 const PORT = process.env.PORT || 3000;
 
 const app = express();
-
-
-app.use(express.static(path.join(__dirname, '../build')));
 app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, '../build')));
 app.use(cors());
 
 app.get('/status', (request, response) => response.json({clients: clientConnections.length}));
@@ -36,7 +34,7 @@ function initDataMap() {
             Vijay: {point: undefined, role: 'qa'},
         },
         isShowDashboard: false,
-        action: undefined,
+        notification: undefined,
     }
 }
 
@@ -83,25 +81,22 @@ app.post("/api/show-dashboard", (req, res) => {
         res.status(400).json({message : 'Could not identify user'})
         return
     }
-    dataMap.action = action.DASHBOARD
+    dataMap.notification = {action : action.DASHBOARD, user: user}
     dataMap.isShowDashboard=true
     res.status(200).json({message: 'OK'});
     notifyAll()
 })
 
+
 app.post("/api/new-round", (req, res) => {
-    const {user} = req.body; // Access the parsed POST data
+    console.log(req.body)
+    const {user} = req.body;
     if (!dataMap.users[user]) {
-        res.status(400).json({message : 'Could not identify user'})
+        res.status(400).json({message : `Could not identify user ${user}`})
         return
     }
-    dataMap.action = action.NEW_ROUND
-    res.status(200).json({message: 'OK'});
-    notifyAll()
-})
-
-app.post("/api/reset", (req, res) => {
     dataMap = initDataMap()
+    dataMap.notification = {action : action.NEW_ROUND, user: user}
     notifyAll()
     res.status(200).json({message: 'OK'});
 })

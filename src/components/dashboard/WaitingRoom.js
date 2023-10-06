@@ -20,7 +20,7 @@ const WaitingRoom = ({user, data, showDashboardHandler, removePoint, setPoint}) 
 
             </div>
         </div>
-        <Button onClick={()=>showDashboardHandler(user)} text={'Force show dashboard for all'}/>
+        <Button onClick={()=>showDashboardHandler(user)} text={'Reveal story points'}/>
 
     </Center>;
 }

@@ -1,7 +1,7 @@
 import Center from "../common/Center";
 import StartNewRoundButton from "../common/StartNewRoundButton";
 
-const Dashboard = ({ data}) => {
+const Dashboard = ({ data, user}) => {
 
     const groupByPointsAndRole = (role) =>{
         return Object.keys(data)
@@ -75,7 +75,7 @@ const Dashboard = ({ data}) => {
                     </table>
                 </div>
             </div>
-            <StartNewRoundButton/>
+            <StartNewRoundButton user={user}/>
             </div>
 
         }

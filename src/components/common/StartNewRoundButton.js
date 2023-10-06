@@ -1,10 +1,10 @@
 import Button from "./Button";
+import {POST} from "../repository/Api";
 
-const StartNewRoundButton = ({goToNext}) => {
+const StartNewRoundButton = ({user}) => {
 
-    const dataResetHandler = () => {
-        fetch("/api/reset", {method:'POST'}).then(goToNext)
-    }
+    const dataResetHandler = () => POST("/api/new-round", {user: user})
+
 
     return <Button onClick={dataResetHandler} text={'Start new round'}/>;
 }
