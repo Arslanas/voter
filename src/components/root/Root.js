@@ -47,7 +47,7 @@ const Root = () => {
     }, [data, user, stage])
 
 
-    return <div>
+    return <div className={'bg-slate-50 h-screen'}>
         {stage === stages.LOGIN &&
             <Login profiles={data?.users ? Object.keys(data.users) : []} setUserHandler={setUser}/>}
 

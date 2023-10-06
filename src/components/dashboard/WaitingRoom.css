@@ -9,11 +9,11 @@
         color: #cbd5e1;
     }
     40% {
-        color: #0266ff;
+        color: #10a6e9;
         scale: 1.2;
         transform: translateY(-3px);
     }
     100% {
-        color: rgb(96 165 250);
+        color: rgb(58, 190, 248);
     }
 }

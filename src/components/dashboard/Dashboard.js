@@ -1,9 +1,9 @@
 import Center from "../common/Center";
 import StartNewRoundButton from "../common/StartNewRoundButton";
 
-const Dashboard = ({ data, user}) => {
+const Dashboard = ({data, user}) => {
 
-    const groupByPointsAndRole = (role) =>{
+    const groupByPointsAndRole = (role) => {
         return Object.keys(data)
             .filter(username => data[username].role === role)
             .reduce((group, name) => {
@@ -21,7 +21,6 @@ const Dashboard = ({ data, user}) => {
     }
 
     const devGroup = groupByPointsAndRole('dev')
-
     const qaGroup = groupByPointsAndRole('qa')
 
 
@@ -29,57 +28,37 @@ const Dashboard = ({ data, user}) => {
 
         {data &&
             <div className={'flex flex-col items-center'}>
-
-
-            <div className={'flex gap-20'}>
-                <div>
-                    <h1 className={'text-center text-4xl mb-6 font-bold text-blue-500'}>DEV</h1>
-                    <table className="min-w-full divide-y divide-gray-200 mb-16">
-                        <tbody>
-                        {Object.keys(devGroup).map(point => {
-                            const users = devGroup[point]
-                            return <tr key={point}>
-                                <td className="px-6 py-4 border-b border-blue-300 text-2xl font-bold  text-blue-400 text-center ">
-                                    {'missing' === point ? 'No points' : point}
-                                </td>
-                                <td className="px-6 py-4 border-b border-blue-300 text-xl font-bold text-blue-300">
-                                    <ul>
-                                        {users.map(user => <li key={user}>{user}</li>)}
-                                    </ul>
-                                </td>
-                            </tr>
-                        })}
-                        </tbody>
-                        <tfoot></tfoot>
-                    </table>
+                <div className={'flex gap-20'}>
+                    <DashboardTable title={'DEV'} group={devGroup} color={'text-sky-400'}></DashboardTable>
+                    <DashboardTable title={'QA'} group={qaGroup} color={'text-cyan-400'}></DashboardTable>
                 </div>
-                <div>
-                    <h1 className={'text-center text-4xl mb-6 font-bold text-blue-500'}>QA</h1>
-                    <table className="min-w-full divide-y divide-gray-200 mb-16">
-                        <tbody>
-                        {Object.keys(qaGroup).map(point => {
-                            const users = qaGroup[point]
-                            return <tr key={point}>
-                                <td className="px-6 py-4 border-b border-blue-300 text-2xl font-bold  text-blue-400 text-center ">
-                                    {'missing' === point ? 'No points' : point}
-                                </td>
-                                <td className="px-6 py-4 border-b border-blue-300 text-xl font-bold text-blue-300">
-                                    <ul>
-                                        {users.map(user => <li key={user}>{user}</li>)}
-                                    </ul>
-                                </td>
-                            </tr>
-                        })}
-                        </tbody>
-                        <tfoot></tfoot>
-                    </table>
-                </div>
-            </div>
-            <StartNewRoundButton user={user}/>
+                <StartNewRoundButton user={user}/>
             </div>
 
         }
     </Center>;
 }
+
+const DashboardTable = ({title, group, color}) => <div>
+    <h1 className={`text-center text-4xl mb-6 font-bold ${color} drop-shadow-md`}>{title}</h1>
+    <table className="min-w-full mb-16">
+        <tbody>
+        {Object.keys(group).map(point => {
+            const users = group[point]
+            return <tr key={point}>
+                <td className={`px-6 py-4 border-b  text-2xl font-bold  ${color} text-center`}>
+                    {'missing' === point ? '_' : point}
+                </td>
+                <td className={`px-6 py-4 border-b  text-xl font-bold ${color}`}>
+                    <ul>
+                        {users.map(user => <li key={user}>{user}</li>)}
+                    </ul>
+                </td>
+            </tr>
+        })}
+        </tbody>
+    </table>
+</div>
+
 
 export default Dashboard;

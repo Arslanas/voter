@@ -11,7 +11,7 @@ const Notification = ({notification}) => {
 
 
     return <div className={'fixed z-10 w-full top-6 flex justify-center notificationAnim'}>
-        <div className={'bg-blue-400 w-fit p-4 rounded-2xl drop-shadow-lg '}>
+        <div className={'bg-sky-500 w-fit p-4 rounded-2xl drop-shadow-lg '}>
             <h1 className={'text-2xl text-white'}><span className={'font-bold'}>{user}</span> {actionMap[action]}</h1>
         </div>
     </div>;
