@@ -30,7 +30,7 @@ const Dashboard = ({data, user}) => {
             <div className={'flex flex-col items-center'}>
                 <div className={'flex gap-20'}>
                     <DashboardTable title={'DEV'} group={devGroup} color={'text-sky-400'}></DashboardTable>
-                    <DashboardTable title={'QA'} group={qaGroup} color={'text-cyan-400'}></DashboardTable>
+                    <DashboardTable title={'QA'} group={qaGroup} color={'text-sky-400'}></DashboardTable>
                 </div>
                 <StartNewRoundButton user={user}/>
             </div>
@@ -49,7 +49,7 @@ const DashboardTable = ({title, group, color}) => <div>
                 <td className={`px-6 py-4 border-b  text-2xl font-bold  ${color} text-center`}>
                     {'missing' === point ? '_' : point}
                 </td>
-                <td className={`px-6 py-4 border-b  text-xl font-bold ${color}`}>
+                <td className={`px-6 py-4 border-b  text-xl ${color}`}>
                     <ul>
                         {users.map(user => <li key={user}>{user}</li>)}
                     </ul>

@@ -29,7 +29,9 @@ const Root = () => {
         isSubscribed.current = true
 
         const events = new EventSource(IS_DEV ? 'http://localhost:3001/api/subscribe' : 'api/subscribe');
-        events.onmessage = (event) => setData(JSON.parse(event.data))
+        events.onmessage = (event) => {
+            setData(JSON.parse(event.data))
+        }
     }, [user])
 
     useEffect(()=>{
