@@ -13,7 +13,7 @@
   },
   "scripts": {
     "server": "node src/backend.js",
-    "serverdev": " set PORT=3001 && node src/backend.js ",
+    "serverdev": " set PORT=3001 && node src/backend.js "
   },
   "eslintConfig": {
     "extends": [
