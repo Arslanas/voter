@@ -1,0 +1,37 @@
+{
+  "name": "voter",
+  "version": "0.1.0",
+  "private": true,
+  "proxy": "http://localhost:3001",
+  "engines": {
+    "node": ">=10",
+    "npm": ">=7"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2"
+  },
+  "scripts": {
+    "server": "node src/backend.js",
+    "serverdev": " set PORT=3001 && node src/backend.js ",
+  },
+  "eslintConfig": {
+    "extends": [
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "npm-run-all": "^4.1.5"
+  }
+}
