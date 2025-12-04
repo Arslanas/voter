@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 3000;
 
 const app = express();
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, '../build')));
+app.use(express.static(path.join(__dirname, '../../front/build')));
 app.use(cors());
 
 app.get('/status', (request, response) => response.json({clients: clientConnections.length}));
@@ -104,7 +104,7 @@ app.post("/api/new-round", (req, res) => {
 
 // All other GET requests not handled before will return our React app
 app.get('*', (req, res) => {
-    const indexFile = path.resolve(__dirname, '../build', req.originalUrl);
+    const indexFile = path.resolve(__dirname, '../../front/build', req.originalUrl);
     res.sendFile(indexFile);
 });
 
