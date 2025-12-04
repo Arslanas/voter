@@ -1,7 +1,7 @@
 import Button from "./Button";
 import {POST} from "../repository/Api";
 
-const StartNewRoundButton = ({user}) => {
+const StartNewRoundButton = ({user} : {user : String}) => {
 
     const dataResetHandler = () => POST("/api/new-round", {user: user})
 
