@@ -15,6 +15,8 @@ const Root = () => {
     const [stage, setStage] = useState(1)
     const isSubscribed = useRef(false);
 
+    console.log(stage, data)
+
     const stages = {
         'LOGIN' : 1,
         'STORY_POINT' : 2,

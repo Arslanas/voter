@@ -3,6 +3,8 @@ import Button from "../common/Button";
 
 const Login = ({profiles, setUserHandler}) => {
 
+    console.log(profiles)
+
     return <Center>
             <h1 className={'text-sky-500 text-4xl font-bold mb-20'}>Choose your profile</h1>
             <div className={'grid grid-cols-3  gap-10 '}>
